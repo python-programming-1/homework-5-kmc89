@@ -33,6 +33,39 @@ def get_most_noisy_city_and_borough(data):
     noisiest_city_and_borough = {'city': None, 'borough': None, 'num_city_calls': None, 'num_borough_calls': None}
 
     # write code here to find the noisiest city and borough and their respective metrics
+    noise_city_calls = {}
+    noise_borugh_calls = {}
+
+    for list in data:
+        if list['city'] == 'City':
+            continue
+        if list['city'] in noise_city_calls.keys():
+            noise_city_calls[list['city']] += int(list['num_calls'])
+        else:
+            noise_city_calls[list['city']] =  int(list['num_calls'])
+        if list['borough'] in noise_borugh_calls.keys():
+            noise_borugh_calls[list['borough']] += int(list['num_calls'])
+        else:
+            noise_borugh_calls[list['borough']] = int(list['num_calls'])
+
+    city = ''
+    borough = ''
+    num = 0
+    for k,v in noise_city_calls.items():
+        if v > num:
+            city = k
+            num = v
+    noisiest_city_and_borough['city'] = city
+    noisiest_city_and_borough['num_city_calls'] = num
+
+    num = 0
+    for k,v in noise_borugh_calls.items():
+        if v > num:
+            borough = k
+            num = v
+    noisiest_city_and_borough['borough'] = borough
+    noisiest_city_and_borough['num_borough_calls'] = num
+
 
     return noisiest_city_and_borough
 
@@ -43,6 +76,38 @@ def get_quietest_city_and_borough(data):
     quietest_city_and_borough = {'city': None, 'borough': None, 'num_city_calls': None, 'num_borough_calls': None}
 
     # write code here to find the quietest city and borough and their respective metrics
+    noise_city_calls = {}
+    noise_borugh_calls = {}
+
+    for list in data:
+        if list['city'] == 'City':
+            continue
+        if list['city'] in noise_city_calls.keys():
+            noise_city_calls[list['city']] += int(list['num_calls'])
+        else:
+            noise_city_calls[list['city']] =  int(list['num_calls'])
+        if list['borough'] in noise_borugh_calls.keys():
+            noise_borugh_calls[list['borough']] += int(list['num_calls'])
+        else:
+            noise_borugh_calls[list['borough']] = int(list['num_calls'])
+
+    city = ''
+    borough = ''
+    num = float('inf')
+    for k,v in noise_city_calls.items():
+        if v < num:
+            city = k
+            num = v
+    quietest_city_and_borough['city'] = city
+    quietest_city_and_borough['num_city_calls'] = num
+
+    num = float('inf')
+    for k,v in noise_borugh_calls.items():
+        if v < num:
+            borough = k
+            num = v
+    quietest_city_and_borough['borough'] = borough
+    quietest_city_and_borough['num_borough_calls'] = num
 
     return quietest_city_and_borough
 
